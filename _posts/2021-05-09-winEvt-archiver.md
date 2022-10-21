@@ -45,6 +45,6 @@ EventLog_Archive.ps1 -EventLogArchivePath D:\EventLog_Archive
 
 ## Check it out
 
-The full script and instructions are over on GitHub - [hibbertda/ps-win-eventlogarchiver](git-archiver)
+The full script and instructions are over on GitHub - [hibbertda/ps-win-eventlogarchiver][git-archive]
 
-[git-archiver](https://github.com/hibbertda/ps-win-eventlogarchive)
+[git-archive](https://github.com/hibbertda/ps-win-eventlogarchive)

@@ -12,7 +12,7 @@ header:
     overlay_filter: 0.7
 ---
 
-A common request in the enterprises large and small, is a report on inactive accounts. The process in Azure Active Directory (AAD) is different than the back in the Active Directory days, but still very possible. In some ways it's even easier to use Azure Logic Apps and the [Microsoft Graph API](graph-api) to query and build a report in one go.
+A common request in the enterprises large and small, is a report on inactive accounts. The process in Azure Active Directory (AAD) is different than the back in the Active Directory days, but still very possible. In some ways it's even easier to use Azure Logic Apps and the [Microsoft Graph API][graph-api] to query and build a report in one go.
 
 The Microsoft Graph API is compatible with just about any way you would want to call an API. PowerShell, Python, or plain jane HTTP it all works. The least effort and sometimes easiest way is to use an Azure Logic App to build out a low/no code solution. Which can query and process the data, and simplify authentication by using a Managed Identity (MSI).
 
@@ -21,17 +21,17 @@ For this first part we are going to walk through the process of creating a Logic
 ## Requirements
 
 - Active Azure enrollment/subscription
-- [Azure Active Directory Premium (P1/P2)](aadp-signinactivity)
-- [Ability to provide AAD admin consent](admin-consent)
+- [Azure Active Directory Premium (P1/P2)][aadp-signinactivity]
+- [Ability to provide AAD admin consent][admin-consent]
 - Logic App
 
 ## Create Logic App
 
 First step is to create a new logic app in your existing Azure subscription. To begin there is no special configuration needed. Use your preferred method to deploy an empty Logic App. There isn't a right or a wrong way.
 
-- [Quickstart-Portal](qs-portal)
-- [Quickstart-ARM Template](qs-arm-template)
-- [Terraform Registry - azurerm_logic_app_workflow](qs-tf)
+- [Quickstart-Portal][qs-portal]
+- [Quickstart-ARM Template][qs-arm-template]
+- [Terraform Registry - azurerm_logic_app_workflow][qs-tf]
 
 ### Managed Identity
 
@@ -148,7 +148,7 @@ There is not currently a dedicated connector for Logic Apps to call the Microsof
 |---|---|
 |select|displayName,userPrincipalName,SignInActivity|
 
-User logon dates are part of **signInActivity**. Azure Active Directory Premium is [required to query the data through the Microsoft Graph](aadp-signinactivity)
+User logon dates are part of **signInActivity**. Azure Active Directory Premium is [required to query the data through the Microsoft Graph][aadp-signinactivity]
 {: .notice--info}
 
 #### Authentication
@@ -163,7 +163,7 @@ This configuration authenticates to the Microsoft Graph with the Logic App MSI t
 
 The Managed Identity (MSI) role assignment script and other bits used in this process are up in my GitHub repo.
 
-**Github Repo** - [aad-graph-lastSignonReport](github-repo)
+**Github Repo** - [aad-graph-lastSignonReport][github-repo]
 
 [qs-portal]: https://docs.microsoft.com/en-us/azure/logic-apps/quickstart-create-first-logic-app-workflow
 [qs-arm-template]:https://docs.microsoft.com/en-us/azure/logic-apps/quickstart-create-deploy-azure-resource-manager-template?tabs=azure-portal

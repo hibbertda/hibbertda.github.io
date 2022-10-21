@@ -15,8 +15,8 @@ header:
 
 A common task when architecting an application is storage. A common denominator for on-premise and in your favorite cloud provider. A recent project working with an application that demanded a lot out of storage. In Azure we had a few different options with the potential to meet the storage performance requirements. After some back and forth we settled on two options:
 
-- [**Azure Managed Disk(s)**](az-managed-disk) configured as software RAID0
-- [**Azure NetApp Files (ANF)**](az-netapp-files) at Standard or Premier performance tier.
+- [**Azure Managed Disk(s)**][az-managed-disk] configured as software RAID0
+- [**Azure NetApp Files (ANF)**][az-netapp-files] at Standard or Premier performance tier.
 
 A huge time suck was waiting as each iteration was built and configured for testing. To help this part of the process along I created a template and scripts to automate building out a test. With the goal being to have a fully single-use ready to go environment to test storage in a few minutes vs. hours or days.
 
@@ -24,13 +24,13 @@ A huge time suck was waiting as each iteration was built and configured for test
 
 ## Templating the testing environment
 
-The purpose of this ARM template is to deploy a full stack environment with all resources and standard configuration. The template deploys a stand along environment that doesn't have external dependencies for any other services from your org, and isn't connected to anything. Remote SSH access to the testing virtual machine is available through [Azure Bastion](az-bastion).
+The purpose of this ARM template is to deploy a full stack environment with all resources and standard configuration. The template deploys a stand along environment that doesn't have external dependencies for any other services from your org, and isn't connected to anything. Remote SSH access to the testing virtual machine is available through [Azure Bastion][az-bastion].
 
 ![logic resource layout](/assets/images/2021-05-07-anftesting/envlayout.png)
 
 ### Virtual Machine
 
-A Linux VM from is created Azure Marketplace. The [VM SKU impact storage performance](az-vm-disk-perf). The E64s_v3 is on the higher end of storage performance available at the time. On the Operating System I select Ubuntu 16.04-LTS. Any Debian-based distro should work YMMV.
+A Linux VM from is created Azure Marketplace. The [VM SKU impact storage performance][az-vm-disk-perf]. The E64s_v3 is on the higher end of storage performance available at the time. On the Operating System I select Ubuntu 16.04-LTS. Any Debian-based distro should work YMMV.
 
 |Default Options|
 |---|---|
@@ -39,7 +39,7 @@ A Linux VM from is created Azure Marketplace. The [VM SKU impact storage perform
 
 ### Storage Config
 
-After the VM deployment is compelted. A post deployment BASH script is used to attache the storage and install [Flexible I/O (fio)](fio) to run performance tests against the different storage options. The storage attahed to the VM is as shown in the table below.
+After the VM deployment is compelted. A post deployment BASH script is used to attache the storage and install [Flexible I/O (fio)][fio] to run performance tests against the different storage options. The storage attahed to the VM is as shown in the table below.
 
 *note: The managed disk option needs to be configured as RAID0 to provide the targets IOPS.*
 
@@ -105,7 +105,7 @@ Go ahead and give this a try. As mentioned above this template will build a stan
 </a>
 
 ### Github Repo
-[hibbertda/az-anf-testing-env](ghrepo)
+[hibbertda/az-anf-testing-env][ghrepo]
 
 [az-managed-disk]: https://docs.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview
 [az-netapp-files]: https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-introduction

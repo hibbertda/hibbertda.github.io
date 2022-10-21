@@ -12,14 +12,14 @@ header:
     overlay_filter: 0.8
 ---
 
-My recommendation for managing IAM in Azure take into account using the built-in Role Based Access Control (RBAC) Role Definitions first. In reality, built-in roles don't always make a perfect fit. At that point we need to look at defining [Custom Role Definitions](az-custom-rbac) to create a role based on the need.
+My recommendation for managing IAM in Azure take into account using the built-in Role Based Access Control (RBAC) Role Definitions first. In reality, built-in roles don't always make a perfect fit. At that point we need to look at defining [Custom Role Definitions][az-custom-rbac] to create a role based on the need.
 
 I am not going to go into detail on Azure RBAC role definitions, or any specific actions/notActions. The configuration will depend on what you need. What I will cover is the creation and management lifecycle of a custom role definition.
 
 There are a different options to create a custom role including:
 
 |---|---|---|---|
-| [Azure Portal](az-portal) | [Azure PowerShell](az-powershell) | [Azure CLI](az-cli) | [REST API](az-rest-api) |
+| [Azure Portal][az-portal] | [Azure PowerShell][az-powershell] | [Azure CLI](az-cli) | [REST API][az-rest-api] |
 
 Any of these options could work for what I was trying to do. Instead I choose the road of using an ARM template to standardize the creation and long term management of custom roles. 
 
@@ -83,7 +83,7 @@ The secret sauce for this process is using an individual parameter file for each
         ]
     }
 ```
-In this example I am creating a custom role to enable global read access with a few restrictions for specific network services that where read access is not allowed. A full list of available Azure resource provider actions is documented on [Microsoft Docs - Azure Resource Provider Operations](az-resource-ops).
+In this example I am creating a custom role to enable global read access with a few restrictions for specific network services that where read access is not allowed. A full list of available Azure resource provider actions is documented on [Microsoft Docs - Azure Resource Provider Operations][az-resource-ops].
 
 ## Deployment
 
