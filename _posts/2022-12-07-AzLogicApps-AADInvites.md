@@ -1,6 +1,6 @@
 ---
 layout: article
-title:  "Invite external users with Logic Apps"
+title:  Customize AAD Invite for external users with Azure Logic Apps
 date:   2022-12-07 12:25:00 -0500
 categories: Azure
 tags: azure aad security logicApps invites
@@ -17,25 +17,34 @@ article_header:
 <meta property='og:image' content='/assets/images/2022-12-07-aadinvite/finished-email.png'/>
 <meta property='og:description' content='Default invitation email is ugly and bad. Can we do something better?'/>
 
-Working on an application that needed to invite extneral users into our Azure Active Directory (AAD) tenant. Easy enough right? Mostly, maybe. Manually inviting users from the Azure portal is easy from the AAD user blade. Click '**New User**' and select the option to invite external users. Full in an email address and some basic config and it works, it does. My problem comes from the email the external user receives by default.
+Working on setting up an application that needs to invite extneral users into our Azure Active Directory (AAD) tenant. Easy enough right? Mostly, maybe. Manually inviting users from the Azure portal is easy from the AAD user blade. Click '**New User**' and select the option to invite external users. Full in an email address and some basic config and it works, it does. My problem comes from the email the external user receives by default.
+
+<br />
 
 ![Default AAD external invite email](/assets/images/2022-12-07-aadinvite/aadexinvitation.png){:.border.rounded}
 
-Look at this thing. Include loads of detail in the text, which I’m sure most users will be familiar with (/s). No branding for the application, or even organization where the invite originated. It's UGLY. The warning while good and true might come off as a little scary without something more indicating where it came from.
+<br />
 
-Assume there was a better option out there I hit the internet and started my search.
+Look at this thing 🤮. Line after line of small detailed text. Text that is easy to understand and not at all scary (/s). No branding for the source organization or application. For my uses the default email is a non-starter.
+
+That fact got me headed down the road to find what options are available to invite extneral users into AAD.
+
+- Without the need to manually create invitations through the Azure portal.
+- Send an email notification with organization and application branding with a link to complete the B2B onboading process.
+
+Thankfully, the search did not take that long. Combining the [Microsoft Graph API][msgraph-docs] with an Azure LogicApp will cover all my bases.
 
 ## Microsoft Graph
 
-Quickly that search lead me to the only real option to start down this road, the [Microsoft Graph API][msgraph-docs]. Which will give us all of the tools needed to take more control over the invite process. The [Invitation Manager][msgraph-invitation-manager] methods in Microsoft Graph enable creating new invitations with options not available through the Azure Portal.
+For the first part of the solution we turn to a favorite, the [Microsoft Graph API][msgraph-docs]. Using the [Invitation Manager][msgraph-invitation-manager] methods in Microsoft Graph enables me to automate the creation of an invitation, and manage additional option in the process.
 
 ### Invitation Manager
 
-With a small JSON payload the Invitation Manager will take care of creating the invite. The cool part is this gives us the option of not sending the default invitation email to the external user. In that case the invite redemtion URL will be provided back in the response from AAD and we can do with it as we like.
+Invitation Manager will take care of creating the invite. The cool, and useful part is this process is the option to choose not to sending the default invitation email. Instead you are provided the redemtion URL to do with as you please.
 
 #### Example payload
 
-The reqest payload only requires basic information about the external user, though additional option are available from the method.
+An example of the request payload to Microsoft Graph to create an invitation.
 
 ```json
 {
@@ -46,12 +55,15 @@ The reqest payload only requires basic information about the external user, thou
 }
 ```
 
+|---|---|
+|inviteRedirectUrl|The URL the user will be redirect to after the invitation is accepted, and onboarding is complete. Can be any URL that you want to send the user to, does not have to be a Microsoft site.|
+|invitedUserDisplayName|External user display name|
+|initedUserEmailAddress|External user email address|
+|sendInvitationMessage|[true:false] Send invitation email to external user? (We want to say False)
+
 #### Example response
 
-Graph will respond with all of the information regarding the invitation, and everything we need to peice together our own invitation. including:
-
-- **inviteRedeemUrl**: URL needed to accept the invitation and complete onboarding.
-- **inviteRedirectUrl**: URL the user will be redirected to once the onboarding is completed.
+The response back from Graph.
 
 ```json
 HTTP/1.1 201 Created
@@ -70,6 +82,11 @@ Content-type: application/json
   "invitedUser": { "id": "243b1de4-ad9f-421c-a933-d55305fb165d" }
 }
 ```
+
+The important parts of this response we need for the next step(s) are:
+
+|---|---|
+|inviteRedeemUrl|URL to accept the invitation request|
 
 ## Logic App
 
