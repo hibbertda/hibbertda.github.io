@@ -1,5 +1,4 @@
 ---
-layout: single
 title:  "Building Azure NetApp Files Testing Environment"
 date:   2021-05-7 13:25:00 -0400
 categories: Azure
@@ -7,10 +6,13 @@ tags: azure, NetApp Files, fio, ubuntu
 image: /assets/images/2021-05-07-anftesting/storagelayout.png
 toc: false
 classes: wide
-excerpt: "Hate sizing storage? I sure do. Give this a shot to build out a purpose built place to do it testing."
+excerpt: "Hate sizing storage? I sure do. Give this a shot to build out a purpose built place to do and do some testing."
 header:
-    overlay_image: /assets/images/2021-05-07-anftesting/storagelayout.png
-    overlay_filter: 0.5
+  theme: dark
+article_header:
+  type: overlay
+  theme: dark
+
 ---
 
 A common task when architecting an application is storage. A common denominator for on-premise and in your favorite cloud provider. A recent project working with an application that demanded a lot out of storage. In Azure we had a few different options with the potential to meet the storage performance requirements. After some back and forth we settled on two options:

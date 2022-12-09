@@ -1,15 +1,16 @@
 ---
-layout: single
+layout: article
 title:  "Find user last logon with the Microsoft Graph"
 date:   2021-05-19 13:25:00 -0400
 categories: Azure
-tags: azure, aad, security
-toc: true
+tags: azure aad security
 #classes: wide
 excerpt: "Lets do some low code to find out which users are no longer active."
 header:
-    overlay_image: /assets/images/2021-05-19-lastlogon/la-wf-http.png
-    overlay_filter: 0.7
+  theme: dark
+article_header:
+  type: overlay
+  theme: dark
 ---
 
 A common request in the enterprises large and small, is a report on inactive accounts. The process in Azure Active Directory (AAD) is different than the back in the Active Directory days, but still very possible. In some ways it's even easier to use Azure Logic Apps and the [Microsoft Graph API][graph-api] to query and build a report in one go.

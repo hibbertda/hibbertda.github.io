@@ -1,12 +1,16 @@
 ---
-layout: single
 title:  "Windows Event Log Archiver"
 date:   2021-05-07 13:25:00 -0400
 categories: Windows PowerShell
 tags: Windows, PowerShell, 
 toc: false
 classes: wide
-excerpt: "Throwback to a PowerShell script I wrote several years ago. The write up was originally on the Microsoft TechNet blogs / PowerShell Gallery. Shortly before it was shutdown I remembered to get in and snag the good bits. Including an awesome comment. Enjoy!"
+excerpt: "Throwback to a PowerShell script I wrote several years ago to automatically archive Windows event logs"
+header:
+  theme: dark
+article_header:
+  type: overlay
+  theme: dark
 ---
 
 Throwback to a PowerShell script I wrote several years ago. The write up was originally on the Microsoft TechNet blogs / PowerShell Gallery. Shortly before it was shutdown I remembered to get in and snag the good bits. Including an awesome comment. Enjoy!

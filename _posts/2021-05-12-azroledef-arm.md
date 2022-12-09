@@ -1,15 +1,15 @@
 ---
-layout: single
 title:  "Custom Azure RBAC Role Definitions using ARM templates"
 date:   2021-05-12 13:25:00 -0400
+author: Daniel Hibbert
 categories: Azure
 tags: azure, RBAC
-toc: false
-classes: wide
 excerpt: "Manage Azure RBAC custom role definitions as code with ARM templates."
 header:
-    overlay_image: /assets/images/2021-05-12-azrole-def-arm/banner.png
-    overlay_filter: 0.8
+  theme: dark
+article_header:
+  type: overlay
+  theme: dark
 ---
 
 My recommendation for managing IAM in Azure take into account using the built-in Role Based Access Control (RBAC) Role Definitions first. In reality, built-in roles don't always make a perfect fit. At that point we need to look at defining [Custom Role Definitions][az-custom-rbac] to create a role based on the need.
